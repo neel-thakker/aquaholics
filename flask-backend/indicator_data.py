@@ -5,10 +5,11 @@ import pandas as pd
 import numpy as np
 import sys
 import json
+from datetime import datetime
 
 
-def get_indicator_idata(stock, interval, period):
-    ticker=yf.Ticker(stock)
+def get_indicator_idata(name, ticker, interval, period):
+    ticker=yf.Ticker(ticker)
     data=ticker.history(period=period, interval=interval)
     data.rename(columns = {'Close':'close','High':'high','Low':'low'}, inplace = True)
     return data
@@ -51,8 +52,8 @@ def get_ad(stock):
     AD = talib.AD(stock['high'], stock['low'], stock['close'], stock['Volume'])
     return AD
 
-def get_all_data(name, interval, period):
-    stock = get_indicator_data(name, interval, period)
+def get_all_data(name, ticker, interval, period):
+    stock = get_indicator_data(ticker, interval, period)
     print(stock)
     print(get_ad(stock))
     print(get_adx(stock))
@@ -63,22 +64,35 @@ def get_all_data(name, interval, period):
     print(get_rsi(stock, 14))
     print(get_sma(stock, 20))
 
-# def get_indicator_data(stock, interval, period):
-#     ticker=yf.Ticker(stock)
-#     data=ticker.history(period=period, interval=interval)
-#     data.rename(columns = {'Open':'open','Close':'close','High':'high','Low':'low'}, inplace = True)
-#     result = data.to_json(orient="index")
-#     parsed = json.loads(result)
-#     # return parsed
-#     print(parsed)
-#     data = []
-#     for items in parsed:
-#         print(items)
+def get_indicator_data(name, ticker, interval, period):
+    tk = yf.Ticker(ticker)
+    data=tk.history(period=period, interval=interval)
+    data.rename(columns = {'Open':'open','Close':'close','High':'high','Low':'low'}, inplace = True)
+    result = data.to_json(orient="index")
+    parsed = json.loads(result)
+    # return parsed
+    # print(type(parsed))
+    data = []
+    for items in parsed:
+        ohlc = [parsed[items]['open'], parsed[items]['high'], parsed[items]['low'], parsed[items]['close']]
+        data.append({ "x" : int(items), "y" : ohlc})
 
+    open_val = round(tk.fast_info.open, 2)
+    curr_val = round(tk.fast_info.last_price, 2)
+    chg_val = round(curr_val - open_val , 2)
+    percent_chg = round(((chg_val/open_val) * 100),2)
 
-    # json.dumps(parsed, indent=4)
-
+    ctx = {
+        'name': name,
+        'ticker': ticker,
+        'currVal': curr_val,
+        'changeVal': chg_val,
+        'percentChange': percent_chg,
+        'data': data
+    }
+    # print(ctx)
+    return ctx
 
 
 if __name__ == "__main__":
-    print(get_indicator_data(sys.argv[1], sys.argv[2], sys.argv[3]))
+    print(get_indicator_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))

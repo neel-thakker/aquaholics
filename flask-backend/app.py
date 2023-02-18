@@ -14,13 +14,25 @@ def home():
 def get_data():
     path = request.get_json(force=True)
     name = path['name']
+    ticker = path['ticker'] + '.NS'
     interval = path['interval']
     period = path['period']
-    print(name, interval, period)
-    df = get_indicator_data(name, interval, period)
+    print(name, ticker, interval, period)
+    df = get_indicator_data(name, ticker, interval, period)
     print(df)
-    data = {'data': df  }
-    return jsonify(data)
+    return jsonify(df)
+
+@app.route('/getCompanyInfo', methods=['GET'])
+def get_data_m():
+    path = request.args
+    name = path.get('name')
+    ticker = path.get('ticker') + '.NS'
+    interval = path.get('interval')
+    period = path.get('period')
+    print(name, ticker, interval, period)
+    df = get_indicator_data(name, ticker, interval, period)
+    print(df)
+    return jsonify(df)
 
 if __name__ == '__main__':
     app.run(debug=True)
