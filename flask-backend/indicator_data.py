@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import sys
+import json
 
 
-def get_indicator_data(stock, interval, period):
+def get_indicator_idata(stock, interval, period):
     ticker=yf.Ticker(stock)
     data=ticker.history(period=period, interval=interval)
     data.rename(columns = {'Close':'close','High':'high','Low':'low'}, inplace = True)
@@ -62,6 +63,22 @@ def get_all_data(name, interval, period):
     print(get_rsi(stock, 14))
     print(get_sma(stock, 20))
 
+# def get_indicator_data(stock, interval, period):
+#     ticker=yf.Ticker(stock)
+#     data=ticker.history(period=period, interval=interval)
+#     data.rename(columns = {'Open':'open','Close':'close','High':'high','Low':'low'}, inplace = True)
+#     result = data.to_json(orient="index")
+#     parsed = json.loads(result)
+#     # return parsed
+#     print(parsed)
+#     data = []
+#     for items in parsed:
+#         print(items)
+
+
+    # json.dumps(parsed, indent=4)
+
+
 
 if __name__ == "__main__":
-    print(get_all_data(sys.argv[1], sys.argv[2], sys.argv[3]))
+    print(get_indicator_data(sys.argv[1], sys.argv[2], sys.argv[3]))

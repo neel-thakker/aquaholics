@@ -17,8 +17,10 @@ def get_data():
     interval = path['interval']
     period = path['period']
     print(name, interval, period)
-    df = get_all_data(name, interval, period)
-    return df.to_string()
+    df = get_indicator_data(name, interval, period)
+    print(df)
+    data = {'data': df  }
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)
