@@ -1,3 +1,79 @@
 body {
 	margin: 0;
+	background-color: var(--background-color);
+
+	font-family: var(--font-family);
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	--background-color: #ecf0f4;
+	--red: #ef5050;
+	--blue: #007bff;
+	--green: #1ecc2f;
+	--required-asterisk: #f51c37;
+	--yellow: #ab8108;
+
+	--primary-text: #1d2130;
+	--secondary-text: #525560;
+
+	--faded-font-color: #858d95;
+	--faded-background-color: #e7ebee;
+	--pale-grey: #fafafa;
+
+	--grey-02: #c0c0c0;
+	--grey-05: #616161;
+	--grey-50: #f9f9fb;
+	--grey-100: #f7f7f9;
+	--grey-200: #e7ebee;
+	--grey-300: #dde1e5;
+	--grey-400: #adb5bd;
+	--grey-500: #adb5bd;
+	--grey-600: #858d95;
+	--grey-800: #343a40;
+
+	--font-family: "Pjs";
+	--font-family-light: "PjsLight";
+	--font-family-italic: "PjsItalic";
+	--font-family-bold: "PjsBold";
+	--font-family-display: "PjsDisplay";
+
+	--screen-width: screen.width;
+}
+
+a {
+	color: black;
+	text-decoration: none !important;
+}
+
+a:hover {
+	color: black;
+	text-decoration: none !important;
+	cursor: pointer;
+}
+
+@font-face {
+	font-family: "Pjs";
+	src: local("Pjs"), url(assets/fonts/PlusJakartaSans/PlusJakartaText-Regular.otf) format("truetype");
+}
+
+@font-face {
+	font-family: "PjsLight";
+	src: local("PjsLight"), url(assets/fonts/PlusJakartaSans/PlusJakartaText-Light.otf) format("truetype");
+}
+
+@font-face {
+	font-family: "PjsItalic";
+	src: local("PjsItalic"), url(assets/fonts/PlusJakartaSans/PlusJakartaText-Italic.otf) format("truetype");
+}
+
+@font-face {
+	font-family: "PjsBold";
+	src: local("PjsBold"), url(assets/fonts/PlusJakartaSans/PlusJakartaText-Bold.otf) format("truetype");
+}
+
+@font-face {
+	font-family: "PjsDisplay";
+	src: local("PjsDisplay"), url(assets/fonts/PlusJakartaSans/PlusJakartaDisplay-Bold.otf) format("truetype");
 }

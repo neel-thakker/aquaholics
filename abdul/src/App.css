@@ -2,3 +2,71 @@
 	margin: 0px;
 	padding: 0px;
 }
+
+.searchbar {
+	width: fit-content;
+	margin: 5vh auto;
+	display: flex;
+}
+
+.searchbar-filters-submit {
+	margin-left: 2vw;
+	padding: 0px 1vw;
+	background-color: #fff;
+	padding-top: 2vh;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.searchbar-filters-submit:hover {
+	background-color: var(--grey-100);
+}
+
+.company {
+	margin: 5vh 10vw;
+	padding: 4vh 2vw;
+	background-color: white;
+	border: var(--primary-text);
+	border-radius: 5px;
+}
+
+.company-hr {
+	margin: 4vh 0px;
+}
+
+.company-values {
+	display: flex;
+}
+
+.company-changeVal {
+	margin-left: 1vw;
+	display: flex;
+	vertical-align: middle;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	/* color: var(--green); */
+}
+
+.company-currVal {
+	/* margin-left: 1vw; */
+	display: flex;
+	vertical-align: middle;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	/* color: var(--green); */
+}
+
+.company > #chart {
+	margin: 4vh 0px;
+}
+
+/* .company-indicator-select {
+	margin-left: auto;
+} */
+
+.company-analysis-list {
+	color: var(--secondary-text);
+	margin: 2vh 2vw;
+}
