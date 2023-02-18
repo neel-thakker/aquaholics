@@ -57,5 +57,5 @@ def final_analysis(data):
     print(get_analysis(rsi,adx,sma100,sma20,adl))
 
 if __name__ == "__main__":
-    df = get_indicator_data(sys.argv[1], sys.argv[2], sys.argv[3])
+    df = get_data(sys.argv[1], sys.argv[2], sys.argv[3])
     final_analysis(df)
