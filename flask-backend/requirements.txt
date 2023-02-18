@@ -1,0 +1,7 @@
+flask
+flask-cors
+Ta-Lib
+yfinance
+matplotlib
+numpy
+pandas
