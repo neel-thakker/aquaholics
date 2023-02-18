@@ -64,21 +64,11 @@ def get_indicator_info(name, ticker, interval, period, indicator):
 
     if indicator[0:3] == "SMA":
         func = get_sma
-        if indicator[3:5] == "20":
-            period = 20
-        elif indicator[3:5] == "50":
-            period = 50
-        elif indicator[3:6] == "100":
-            period = 100
+        period = int(indicator[3:])
 
     elif indicator[0:3] == "EMA":
         func = get_ema
-        if indicator[3:5] == "20":
-            period = 20
-        elif indicator[3:5] == "50":
-            period = 50
-        elif indicator[3:6] == "100":
-            period = 100
+        period = int(indicator[3:])
 
     val = func(data, period)
     result = val.to_json(orient="index")
