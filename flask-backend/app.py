@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 from indicator_data import get_indicator_data, get_indicator_info
-# from news import get_news
+from news import get_news
 
 app = Flask(__name__)
 CORS(app)
@@ -19,8 +19,6 @@ def get_data():
     period = path['period']
     print(name, interval, period)
     df = get_indicator_data(name, interval, period)
-    analysis = get_analysis(df)
-    print(df)
     return jsonify(df)
 
 @app.route('/getCompanyInfo', methods=['GET'])
@@ -46,14 +44,12 @@ def get_data_ind():
     df = get_indicator_info(name, ticker, interval, period, indicator)
     return jsonify(df)
 
-# @app.route('/getIndicatorInfo', methods=['GET'])
-# def get_company_news():
-#     path = request.args
-#     name = path.get('name')
-#     ticker = path.get('ticker') + '.NS'
-#     print(name, ticker)
-#     df = get_news(name, ticker)
-#     return jsonify(df)
+@app.route('/getCompanyNews', methods=['GET'])
+def get_company_news():
+    path = request.args
+    name = path.get('name')
+    df = get_news(name)
+    return jsonify(df)
 
 if __name__ == '__main__':
     app.run(debug=True)
