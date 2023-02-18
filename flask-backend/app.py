@@ -17,7 +17,7 @@ def get_data():
     interval = path['interval']
     period = path['period']
     print(name, interval, period)
-    df = get_indicator_data(name, interval, period)
+    df = get_all_data(name, interval, period)
     return df.to_string()
 
 if __name__ == '__main__':
