@@ -4565,12 +4565,12 @@ export const searchCompany = {
 			code: "5m",
 		},
 		{
-			name: "30 minutes",
-			code: "30m",
+			name: "1 hour",
+			code: "1h",
 		},
 		{
-			name: "12 hours",
-			code: "12h",
+			name: "1 day",
+			code: "1d",
 		},
 	],
 	periods: [
@@ -4587,8 +4587,8 @@ export const searchCompany = {
 			code: "1mo",
 		},
 		{
-			name: "6 months",
-			code: "6mo",
+			name: "3 months",
+			code: "3mo",
 		},
 		{
 			name: "1 year",
@@ -4893,11 +4893,11 @@ export const indicators = {
 			code: "SMA10",
 		},
 		{
-			name: "EMA - 20",
+			name: "EMA - 02",
 			code: "EMA2",
 		},
 		{
-			name: "EMA - 50",
+			name: "EMA - 05",
 			code: "EMA5",
 		},
 		{
@@ -5220,7 +5220,7 @@ export const options = {
 			},
 		},
 		stroke: {
-			width: [1, 1],
+			width: [3, 1],
 		},
 		// tooltip: {
 		// 	shared: true,
@@ -5365,6 +5365,54 @@ export const lineGraph = {
 	},
 };
 
+export const dummyNews = [
+	{
+		content:
+			"Infosys brand value grows to US$13 billion according to Brand Finance Global 500 2023 Report\r\nDAVOS, Switzerland , Jan. 17, 2023 /PRNewswire/ -- Infosys (NSE, BSE, NYSE: INFY), a global leader in nex… [+7693 chars]",
+		publishedAt: "2023-01-18T01:57:00Z",
+		source: "Yahoo Entertainment",
+		tittle: "Infosys Ranked in the Top 3 IT Services Brands in the World; Among the Top 150 Most Valued Brands",
+		url: "https://finance.yahoo.com/news/infosys-ranked-top-3-services-015700069.html",
+		urlToImg: "https://media.zenfs.com/en/prnewswire.com/0c8db56255611c7352466a2330af9c2e",
+	},
+	{
+		content:
+			"Infosys brand value grows to US$13 billion according to Brand Finance Global 500 2023 Report\r\nDAVOS, Switzerland , Jan. 17, 2023 /PRNewswire/ -- Infosys (NSE, BSE, NYSE: INFY), a global leader in nex… [+7693 chars]",
+		publishedAt: "2023-01-18T01:57:00Z",
+		source: "Yahoo Entertainment",
+		tittle: "Infosys Ranked in the Top 3 IT Services Brands in the World; Among the Top 150 Most Valued Brands",
+		url: "https://finance.yahoo.com/news/infosys-ranked-top-3-services-015700069.html",
+		urlToImg: "https://media.zenfs.com/en/prnewswire.com/0c8db56255611c7352466a2330af9c2e",
+	},
+	{
+		content:
+			"Infosys brand value grows to US$13 billion according to Brand Finance Global 500 2023 Report\r\nDAVOS, Switzerland , Jan. 17, 2023 /PRNewswire/ -- Infosys (NSE, BSE, NYSE: INFY), a global leader in nex… [+7693 chars]",
+		publishedAt: "2023-01-18T01:57:00Z",
+		source: "Yahoo Entertainment",
+		tittle: "Infosys Ranked in the Top 3 IT Services Brands in the World; Among the Top 150 Most Valued Brands",
+		url: "https://finance.yahoo.com/news/infosys-ranked-top-3-services-015700069.html",
+		urlToImg: "https://media.zenfs.com/en/prnewswire.com/0c8db56255611c7352466a2330af9c2e",
+	},
+	{
+		content:
+			"Infosys brand value grows to US$13 billion according to Brand Finance Global 500 2023 Report\r\nDAVOS, Switzerland , Jan. 17, 2023 /PRNewswire/ -- Infosys (NSE, BSE, NYSE: INFY), a global leader in nex… [+7693 chars]",
+		publishedAt: "2023-01-18T01:57:00Z",
+		source: "Yahoo Entertainment",
+		tittle: "Infosys Ranked in the Top 3 IT Services Brands in the World; Among the Top 150 Most Valued Brands",
+		url: "https://finance.yahoo.com/news/infosys-ranked-top-3-services-015700069.html",
+		urlToImg: "https://media.zenfs.com/en/prnewswire.com/0c8db56255611c7352466a2330af9c2e",
+	},
+	{
+		content:
+			"Infosys brand value grows to US$13 billion according to Brand Finance Global 500 2023 Report\r\nDAVOS, Switzerland , Jan. 17, 2023 /PRNewswire/ -- Infosys (NSE, BSE, NYSE: INFY), a global leader in nex… [+7693 chars]",
+		publishedAt: "2023-01-18T01:57:00Z",
+		source: "Yahoo Entertainment",
+		tittle: "Infosys Ranked in the Top 3 IT Services Brands in the World; Among the Top 150 Most Valued Brands",
+		url: "https://finance.yahoo.com/news/infosys-ranked-top-3-services-015700069.html",
+		urlToImg: "https://media.zenfs.com/en/prnewswire.com/0c8db56255611c7352466a2330af9c2e",
+	},
+];
+
 const data = {
 	font,
 	searchCompany,
@@ -5372,6 +5420,7 @@ const data = {
 	options,
 	indicators,
 	barGraph,
+	dummyNews,
 };
 
 export default data;

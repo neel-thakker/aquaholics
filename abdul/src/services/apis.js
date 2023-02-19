@@ -18,12 +18,19 @@ async function getIndicatorInfo(obj) {
 	);
 }
 
+async function getNewsInfo(obj) {
+	return fetch(`${API_ROOT}/getCompanyNews?name=${obj.name}`, {
+		method: "GET",
+	});
+}
+
 const apis = {
 	// auth: { login, register, forget, email },
 	// user: { getAllUsers, getMyProfile, getUserById, getProfList },
 	company: {
 		getCompanyInfo,
 		getIndicatorInfo,
+		getNewsInfo,
 	},
 };
 

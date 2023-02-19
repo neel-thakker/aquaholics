@@ -1,16 +1,21 @@
 import "./App.css";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+
 import Header from "./components/Header";
 
 import { TextField, Autocomplete, MenuItem, Backdrop, CircularProgress } from "@mui/material";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 import ReactApexChart from "react-apexcharts";
+import ReactSpeedometer from "react-d3-speedometer";
 
 import apis from "./services/apis";
 import data from "./services/data";
 import { useEffect, useState } from "react";
 
-function App() {
+export default function App() {
+	// const navigate = useNavigate();
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [isOpaqueLoading, setIsOpaqueLoading] = useState(false);
 
@@ -23,6 +28,7 @@ function App() {
 
 	const [companyInfo, setCompanyInfo] = useState(null);
 	const [indicatorInfo, setIndicatorInfo] = useState(null);
+	const [newsInfo, setNewsInfo] = useState(Array(0));
 
 	const defaultProps = {
 		options: data.searchCompany.companies,
@@ -56,6 +62,7 @@ function App() {
 			alert("An error occurred, please try again some time");
 		}
 
+		updateNewsInfo();
 		setIsOpaqueLoading(false);
 	};
 
@@ -85,6 +92,29 @@ function App() {
 			console.log(JSON.stringify(response, 4, 4));
 
 			setIndicatorInfo(response);
+		} catch (err) {
+			console.log(err, "in updateCompanyInfo inside DocsPage");
+			alert("An error occurred, please try again some time");
+		}
+
+		setIsLoading(false);
+	};
+
+	const updateNewsInfo = async () => {
+		setIsLoading(true);
+
+		try {
+			const obj = {
+				name: searchCompany,
+			};
+
+			console.log(JSON.stringify(obj, 4, 4));
+
+			let response = await apis.company.getNewsInfo(obj).then((res) => res.json());
+
+			console.log(JSON.stringify(response, 4, 4));
+
+			setNewsInfo(response);
 		} catch (err) {
 			console.log(err, "in updateCompanyInfo inside DocsPage");
 			alert("An error occurred, please try again some time");
@@ -334,17 +364,101 @@ function App() {
 									},
 								},
 								xaxis: {
-									// categories: companyInfo.data.map((d) => {
-									// 	let date = new Date(d.x);
-									// 	if (companyInfo.data.indexOf(d) % 5 === 0)
-									// 		return date.getHours() + ":" + date.getMinutes();
-									// 	else return "";
-									// }),
+									categories: companyInfo.data.map((d) => {
+										let date = new Date(d.x);
+										if (companyInfo.data.indexOf(d) % 5 === 0)
+											return date.getHours() + ":" + date.getMinutes();
+										else return "";
+									}),
 								},
 							}}
-							// type="bar"
-							// height={350}
 						/>
+					</div>
+
+					<hr className="company-hr" />
+
+					<div className="company-predictions">
+						<h2 className="company-predictions-heading">Our Predictions:</h2>
+						<div className="company-prediction-gauges">
+							<ReactSpeedometer
+								width={500}
+								needleHeightRatio={0.7}
+								value={companyInfo.shortPrediction * 10}
+								currentValueText="Short Term"
+								customSegmentLabels={[
+									{
+										text: "Strong SELL",
+										position: "INSIDE",
+										color: "#555",
+									},
+									{
+										text: "Weak SELL",
+										position: "INSIDE",
+										color: "#555",
+									},
+									{
+										text: "HOLD",
+										position: "INSIDE",
+										color: "#555",
+										fontSize: "19px",
+									},
+									{
+										text: "Weak BUY",
+										position: "INSIDE",
+										color: "#555",
+									},
+									{
+										text: "Strong BUY",
+										position: "INSIDE",
+										color: "#555",
+									},
+								]}
+								ringWidth={47}
+								needleTransitionDuration={3333}
+								needleTransition="easeElastic"
+								needleColor={"#90f2ff"}
+								textColor={data.font.primaryText}
+							/>
+							<ReactSpeedometer
+								width={500}
+								needleHeightRatio={0.7}
+								value={companyInfo.shortPrediction * 10}
+								currentValueText="Long Term"
+								customSegmentLabels={[
+									{
+										text: "Strong SELL",
+										position: "INSIDE",
+										color: "#555",
+									},
+									{
+										text: "Weak SELL",
+										position: "INSIDE",
+										color: "#555",
+									},
+									{
+										text: "HOLD",
+										position: "INSIDE",
+										color: "#555",
+										fontSize: "19px",
+									},
+									{
+										text: "Weak BUY",
+										position: "INSIDE",
+										color: "#555",
+									},
+									{
+										text: "Strong BUY",
+										position: "INSIDE",
+										color: "#555",
+									},
+								]}
+								ringWidth={47}
+								needleTransitionDuration={3333}
+								needleTransition="easeElastic"
+								needleColor={"#90f2ff"}
+								textColor={data.font.primaryText}
+							/>
+						</div>
 					</div>
 
 					<hr className="company-hr" />
@@ -363,7 +477,47 @@ function App() {
 
 					<hr className="company-hr" />
 
-					<h3>Insights 👀</h3>
+					{newsInfo ? (
+						<>
+							<h3 className="news-heading">📢 News</h3>
+
+							{newsInfo.map((n) => {
+								return (
+									<div className="news-card" key={String(n.title).substring(0, 108) + "..."}>
+										<img
+											className="news-card-img"
+											src={n.urlToImg}
+											alt="Denim Jeans"
+											width={"30%"}
+										/>
+
+										<div className="news-card-body">
+											<p className="news-source">{n.source}</p>
+
+											<h3 className="news-title">{n.tittle}</h3>
+
+											<p className="news-content">{n.content}</p>
+
+											<p className="news-publishedAt">
+												{n.publishedAt.substring(8, 10) +
+													"/" +
+													n.publishedAt.substring(5, 7) +
+													"/" +
+													n.publishedAt.substring(0, 4)}
+											</p>
+											<p>
+												<button onClick={() => (window.location.href = n.url)}>
+													Go to News
+												</button>
+											</p>
+										</div>
+									</div>
+								);
+							})}
+						</>
+					) : (
+						<></>
+					)}
 
 					<hr className="company-hr" />
 				</div>
@@ -373,5 +527,3 @@ function App() {
 		</div>
 	);
 }
-
-export default App;

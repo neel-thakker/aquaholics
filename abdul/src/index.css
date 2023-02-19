@@ -15,6 +15,13 @@ body {
 	--required-asterisk: #f51c37;
 	--yellow: #ab8108;
 
+	--yellow-500: rgba(47, 100, 213, 1);
+	--yellow-400: rgba(47, 100, 213, 0.8);
+	--yellow-300: rgba(47, 100, 213, 0.6);
+	--yellow-200: rgba(47, 100, 213, 0.4);
+	--yellow-100: rgba(47, 100, 213, 0.2);
+	--yellow-50: #c0cbe2;
+
 	--primary-text: #1d2130;
 	--secondary-text: #525560;
 
