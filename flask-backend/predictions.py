@@ -809,7 +809,7 @@ def finalPred(data,bollinger,rsi,macd,adx,atr,adl,sma200,sma50,sma20,stoc_rsi,em
   r13=adl_rsi(data,adl,stoc_rsi,idx)
   r14=obv_ema_rsi(data,rsi,idx)
   r15=vwap_sentiment(data,idx)
-  result=(r1+r2+r3+r4+r5+r6+r7+r8+r9+r10+r11+r12+r13+r14+r15)/13
+  result=(r1+r2+r3+r4+r5+r6+r7+r8+r9+r10+r11+r12+r13+r14+r15)/15
   return result
 
 def get_pred(data):
