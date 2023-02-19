@@ -5413,6 +5413,168 @@ export const dummyNews = [
 	},
 ];
 
+export const glossary = {
+	detailText: [
+		{
+			id: "RSI",
+			heading: "RSI",
+			imgSrc: require("../assets/img/rsi.png"),
+			content: [
+				"The Relative Strength Index (RSI) is a popular technical analysis indicator that measures the strength of a security's price action by comparing the size of its gains to the size of its losses over a certain time period. The RSI ranges from 0 to 100 and is calculated using the following formula:",
+
+				"RSI = 100 - (100 / (1 + RS))",
+
+				"where RS = Average gain of up periods / Average loss of down periods.",
+
+				"To calculate the RSI, you first need to determine the average gain and average loss over a certain time period, which is typically 14 days. ",
+
+				"The average gain is calculated by adding up all of the gains (positive price changes) over the period and dividing by the total number of periods. The average loss is calculated by adding up all of the losses (negative price changes) over the period and dividing by the total number of periods.",
+
+				"Then, you calculate the Relative Strength (RS) by dividing the average gain by the average loss. Finally, you plug the RS value into the RSI formula to get a value between 0 and 100.",
+
+				"When the RSI is above 70, it is generally considered overbought, which means that the security may be due for a price correction or a pullback. When the RSI is below 30, it is generally considered oversold, which means that the security may be due for a price rebound or a rally.",
+
+				"Traders and analysts use the RSI to identify potential buy and sell signals. For example, a trader might look to buy a security when the RSI falls below 30 and then rises back above it, or sell a security when the RSI rises above 70 and then falls back below it.",
+			],
+		},
+		{
+			id: "MACD",
+			heading: "MACD",
+			imgSrc: require("../assets/img/macd.png"),
+			content: [
+				"The Moving Average Convergence Divergence (MACD) indicator is a  technical analysis tool used to identify changes in the momentum, direction, and strength of a security's price trend. The MACD is calculated using two exponential moving averages (EMAs) and a signal line.",
+
+				"Here's how the MACD is calculated:",
+
+				"1. Calculate the 26-period EMA of the security's closing price.",
+				"2. Calculate the 12-period EMA of the security's closing price.",
+				"3. Subtract the 26-period EMA from the 12-period EMA to get the MACD line.",
+				"4. Calculate the 9-period EMA of the MACD line to get the signal line.",
+
+				"The MACD line represents the difference between the 12-period EMA and the 26-period EMA, and it is plotted on a chart alongside the security's price. The signal line is the 9-period EMA of the MACD line, and it is plotted alongside the MACD line. When the MACD line crosses above the signal line, it is considered a bullish signal, and when it crosses below the signal line, it is considered a bearish signal.",
+				"Traders and analysts use the MACD to identify potential buy and sell signals. For example, a trader might look to buy a security when the MACD line crosses above the signal line, or sell a security when the MACD line crosses below the signal line.",
+				"In addition to the signal line, the MACD also has a histogram that represents the difference between the MACD line and the signal line. The histogram can help traders identify changes in momentum, and it is positive when the MACD line is above the signal line and negative when the MACD line is below the signal line.",
+			],
+		},
+		{
+			id: "BollingerBands",
+			heading: "Bollinger Bands",
+			imgSrc: require("../assets/img/BollingerBands.png"),
+			content: [
+				"Bollinger Bands is a popular technical analysis tool developed by John Bollinger. It consists of three lines: a simple moving average (SMA) line in the center, and an upper and lower band that are plotted a certain number of standard deviations away from the SMA line. The distance between the upper and lower bands is determined by the volatility of the price.",
+
+				"Here's how Bollinger Bands are calculated:",
+
+				"1. Calculate the Simple Moving Average (SMA) of the price over a certain period. The most commonly used period is 20.",
+				"2. Calculate the standard deviation of the price over the same period.",
+				"3. Calculate the upper band by adding two standard deviations to the SMA. The upper band is a measure of the upper price target for the security.",
+				"4. Calculate the lower band by subtracting two standard deviations from the SMA. The lower band is a measure of the lower price target for the security.",
+
+				"The width of the Bollinger Bands is determined by the volatility of the security. If the security is volatile, the bands will widen, indicating a higher level of uncertainty or risk. Conversely, if the security is less volatile, the bands will narrow, indicating a lower level of uncertainty or risk.",
+
+				"Bollinger Bands can be used to identify potential buy or sell signals. When the price moves towards the upper band, it may indicate an overbought condition, which could lead to a price reversal. Conversely, when the price moves towards the lower band, it may indicate an oversold condition, which could lead to a price rebound.",
+			],
+		},
+		{
+			id: "ADX",
+			heading: "ADX",
+			imgSrc: require("../assets/img/ADX.png"),
+			content: [
+				"The ADX (Average Directional Movement Index) is a technical indicator that measures the strength of a trend in a security or market. It was developed by J. Welles Wilder and is often used by traders and analysts to identify the strength of a trend and potential changes in trend direction.",
+
+				"The ADX is calculated using the following steps:",
+
+				"1. Calculate the positive directional movement (+DM) and negative directional movement (-DM) for each period. The +DM is the difference between the current high and the previous high, while the -DM is the difference between the current low and the previous low.",
+				"2. Calculate the true range (TR) for each period. The TR is the greatest of the following values: the difference between the current high and the current low, the absolute value of the difference between the current high and the previous close, and the absolute value of the difference between the current low and the previous close.",
+				"3. Calculate the directional movement index (DX) for each period. The DX is the absolute value of the difference between the +DM and -DM, divided by the true range, multiplied by 100.",
+				"4. Calculate the ADX by taking the average of the DX values over a specified time period, typically 14 periods.",
+				"The ADX is usually plotted as a single line that ranges from 0 to 100. A reading below 20 indicates a weak trend, while a reading above 50 indicates a strong trend. Traders often use the ADX in combination with other indicators to identify potential buy and sell signals.",
+			],
+		},
+		{
+			id: "ATR",
+			heading: "ATR",
+			imgSrc: require("../assets/img/ATR.png"),
+			content: [
+				"The Average True Range (ATR) is a technical analysis indicator that measures a security's volatility. The ATR is calculated using the following formula:",
+
+				"ATR = [(Prior ATR x 13) + Current TR] / 14",
+
+				"where TR = max[(high - low), abs(high - prior close), abs(low - prior close)]",
+				"To calculate the ATR, you first need to determine the True Range (TR) for each period. The TR is the largest of the following three values:",
+				"1. The difference between the high and low prices for the period.",
+				"2. The absolute value of the difference between the high price and the prior period's closing price.",
+
+				"3. The absolute value of the difference between the low price and the prior period's closing price.",
+
+				"Once you have calculated the TR for each period, you can then calculate the ATR. The ATR is an exponential moving average of the TR values, with a smoothing factor of 1/14.",
+
+				"The ATR provides a measure of the security's volatility, which can help traders determine how much risk to take on when entering or exiting positions. A high ATR indicates high volatility, which means that the security is more likely to experience large price swings. Conversely, a low ATR indicates low volatility, which means that the security is more likely to experience smaller price swings.",
+
+				"Traders can use the ATR to set stop-loss orders and profit targets based on the expected price movement of the security. For example, a trader might set a wider stop-loss order for a security with a high ATR and a tighter stop-loss order for a security with a low ATR.",
+			],
+		},
+		{
+			id: "SMA",
+			heading: "SMA",
+			imgSrc: require("../assets/img/SMA.png"),
+			content: [
+				"The Simple Moving Average (SMA) is a commonly used technical analysis indicator that helps traders identify the overall direction of a security's price trend. It is calculated by taking the sum of a security's closing prices over a specified time period and dividing that sum by the number of periods.",
+
+				"Here's how the SMA is calculated:",
+
+				"1. Add up the closing prices for a specified number of periods.",
+				"2. Divide the total by the number of periods.",
+
+				"For example, to calculate the 20-day SMA for a stock, you would add up the closing prices for the most recent 20 trading days and then divide the total by 20.",
+				"The SMA is typically plotted on a chart alongside the security's price, with the SMA line representing the average price over the specified time period. Traders often use the SMA to identify the overall direction of a security's price trend. If the security's price is above the SMA, it is generally considered to be in an uptrend, while if it is below the SMA, it is generally considered to be in a downtrend.",
+				"Traders can also use the SMA to identify potential buy and sell signals. For example, a trader might look to buy a security when its price crosses above the SMA, or sell a security when its price crosses below the SMA",
+			],
+		},
+		{
+			id: "EMA",
+			heading: "EMA",
+			imgSrc: require("../assets/img/EMA.png"),
+			content: [
+				"The Exponential Moving Average (EMA) is a technical indicator used to analyze financial markets, particularly in stock trading and forex trading. It is similar to the Simple Moving Average (SMA), but the EMA gives more weight to the most recent prices, which makes it more responsive to short-term price movements.",
+
+				"The calculation of the EMA involves taking a weighted average of the prices over a given period. The formula for calculating EMA is:",
+
+				"EMA = (Price(t) x Multiplier) + EMA(y) x (1 – Multiplier)",
+				"Where:",
+				"(i) EMA(y) is the EMA value for the previous period",
+				"(ii) Price(t) is the price at the current time period",
+				"(iii) Multiplier = 2 / (N + 1), where N is the number of periods in the EMA calculation.",
+
+				"The EMA indicator provides traders with information about the direction and strength of the trend in the market. When the price is above the EMA, it is considered to be in an uptrend, and when the price is below the EMA, it is considered to be in a downtrend. The slope and angle of the EMA line can also provide information about the strength of the trend.",
+				"Traders often use the EMA in conjunction with other technical indicators, such as the Relative Strength Index (RSI), to identify potential buying or selling opportunities. It is important to note that no single indicator can predict market movements with 100% accuracy, and traders should always use a combination of indicators and analysis methods when making trading decisions.",
+			],
+		},
+		{
+			id: "OBV",
+			heading: "OBV",
+			imgSrc: require("../assets/img/OBV.png"),
+			content: [
+				"The On-Balance Volume (OBV) is a technical indicator used to analyze financial markets, particularly in stock trading and forex trading. It measures buying and selling pressure by keeping a running total of volume based on whether prices are rising or falling.",
+
+				"The calculation of OBV involves adding or subtracting the volume of a particular security depending on whether the price is up or down. The formula for calculating OBV is:",
+
+				"OBV = Previous OBV + Current Volume if Current Closing Price > Previous Closing Price",
+				"OBV = Previous OBV - Current Volume if Current Closing Price < Previous Closing Price",
+				"OBV = Previous OBV if Current Closing Price = Previous Closing Price",
+				"Where:",
+
+				"(i) Previous OBV is the OBV value for the previous period",
+				"(ii) Current Volume is the volume of shares traded during the current period",
+				"(iii) Current Closing Price is the closing price of the security for the current period.",
+
+				"The OBV indicator provides traders with information about the buying and selling pressure of a security. When the OBV line is rising, it suggests that buying pressure is increasing, and when it is falling, it suggests that selling pressure is increasing. A divergence between the OBV line and the price of the security can also provide information about potential trend reversals.",
+				"Traders often use the OBV in conjunction with other technical indicators, such as moving averages and relative strength indicators, to identify potential buying or selling opportunities. It is important to note that no single indicator can predict market movements with 100% accuracy, and traders should always use a combination of indicators and analysis methods when making trading decisions.",
+			],
+		},
+	],
+};
+
 const data = {
 	font,
 	searchCompany,
@@ -5421,6 +5583,7 @@ const data = {
 	indicators,
 	barGraph,
 	dummyNews,
+	glossary,
 };
 
 export default data;

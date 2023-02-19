@@ -1,6 +1,7 @@
 .App {
 	margin: 0px;
 	padding: 0px;
+	min-height: 100vh;
 }
 
 .searchbar {
@@ -28,6 +29,10 @@
 	background-color: white;
 	border: var(--primary-text);
 	border-radius: 5px;
+}
+
+.companyHolder {
+	min-height: 80vh;
 }
 
 .company-hr {

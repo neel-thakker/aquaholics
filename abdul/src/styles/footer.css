@@ -1,0 +1,14 @@
+.footer {
+	background-color: var(--yellow-100);
+}
+
+.footer-msg {
+	width: 80%;
+	text-align: center;
+	padding-bottom: 4vh;
+	margin: 4vh auto 0px;
+}
+
+.footer-msg-hl {
+	color: var(--yellow-400);
+}
