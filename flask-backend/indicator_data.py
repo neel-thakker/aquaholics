@@ -156,11 +156,11 @@ def get_indicator_data(name, ticker, interval, period):
     d2 = get_data(ticker, "1d", "max")
 
     # short term pred
-    
-    pred1 = int(5*(get_pred(d1) + 100)/6)
-    
+
+    pred1 = int(3*(get_pred(d1)/4)+50)
+
     # long term pred
-    pred2 = int(5*(get_pred(d2) + 100)/6)
+    pred2 = int(3*(get_pred(d2)/4)+50)
 
 
 
