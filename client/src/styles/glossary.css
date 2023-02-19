@@ -1,0 +1,52 @@
+.glossary-header {
+	background-color: var(--yellow-100);
+	padding: 18vh 0;
+	width: 100%;
+}
+
+.glossary-header > h1 {
+	width: fit-content;
+	margin: auto;
+	color: var(--grey-800);
+}
+
+.glossary-header > h3 {
+	color: var(--yellow-500);
+	font-size: 2.4vh;
+	font-weight: 500;
+	margin-top: -3vh;
+	text-align: center;
+}
+
+.glossary-detail-text {
+	margin: 8vh;
+	display: flex;
+	color: var(--primary-text);
+}
+
+.glossary-detail-text-heading {
+	flex: 0.33;
+	font-size: 3vh;
+}
+
+.glossary-detail-text-heading > hr {
+	width: 46%;
+	margin: 2vh 0px;
+	border: 1px solid var(--primary-text);
+}
+
+.glossary-detail-text-content {
+	flex: 0.66;
+	font-size: 1.8vh;
+	color: var(--secondary-text);
+}
+
+.detail-text-list-line {
+	margin-bottom: 2vh;
+	text-align: justify;
+}
+
+.glossary-img-section {
+	width: fit-content;
+	margin: auto;
+}

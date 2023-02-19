@@ -1,0 +1,159 @@
+.App {
+	margin: 0px;
+	padding: 0px;
+	min-height: 100vh;
+}
+
+.searchbar {
+	width: fit-content;
+	margin: 5vh auto;
+	display: flex;
+}
+
+.searchbar-filters-submit {
+	margin-left: 2vw;
+	padding: 0px 1vw;
+	background-color: #fff;
+	padding-top: 2vh;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.searchbar-filters-submit:hover {
+	background-color: var(--grey-100);
+}
+
+.company {
+	margin: 5vh 10vw;
+	padding: 4vh 2vw;
+	background-color: white;
+	border: var(--primary-text);
+	border-radius: 5px;
+}
+
+.companyHolder {
+	min-height: 80vh;
+}
+
+.company-hr {
+	margin: 4vh 0px;
+}
+
+.company-values {
+	display: flex;
+}
+
+.company-changeVal {
+	margin-left: 1vw;
+	display: flex;
+	vertical-align: middle;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	/* color: var(--green); */
+}
+
+.company-currVal {
+	/* margin-left: 1vw; */
+	display: flex;
+	vertical-align: middle;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	/* color: var(--green); */
+}
+
+.company > #chart {
+	margin: 4vh 0px;
+}
+
+/* .company-indicator-select {
+	margin-left: auto;
+} */
+
+.company-analysis-list {
+	color: var(--secondary-text);
+	margin: 2vh 2vw;
+}
+
+.company-prediction-gauges {
+	width: fit-content;
+	margin: auto;
+}
+
+.news-card {
+	display: flex;
+	height: 28vh;
+	width: 70vw;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+	/* max-width: 300px; */
+	margin: auto;
+	margin-bottom: 4vh;
+	margin-top: 4vh;
+	text-align: center;
+	font-family: arial;
+
+	border-radius: 10px;
+}
+
+.news-card-img {
+	flex: 0.3;
+	border-radius: 10px;
+}
+
+.news-card-body {
+	flex: 0.7;
+	/* width: 50%; */
+}
+
+.news-source {
+	font-size: small;
+	text-align: left;
+
+	padding: 1vh 1vw;
+	/* margin: 1vh 1vw; */
+	color: var(--yellow-500);
+	background-color: var(--background-color);
+	width: fit-content;
+}
+
+.news-title {
+	margin: 1vh 1vw 2vh;
+	color: var(--primary-text);
+
+	text-align: justify;
+}
+
+.news-content {
+	margin: 1vh 1vw;
+	color: var(--secondary-text);
+	font-size: small;
+
+	text-align: justify;
+}
+
+.news-publishedAt {
+	text-align: left;
+	margin: 1vh 1vw;
+	font-size: medium;
+	color: var(--secondary-text);
+}
+
+.news-card button {
+	margin-top: auto;
+	border: none;
+	outline: 0;
+	padding: 6px;
+	color: white;
+	background-color: var(--yellow-400);
+	text-align: center;
+	cursor: pointer;
+	width: 60%;
+	font-size: 15px;
+
+	border-radius: 4px;
+}
+
+.news-card button:hover {
+	opacity: 0.7;
+}
