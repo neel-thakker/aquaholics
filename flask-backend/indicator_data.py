@@ -6,6 +6,7 @@ import numpy as np
 import sys
 import json
 
+from predictions import get_pred
 
 def get_data(stock, interval, period):
     ticker=yf.Ticker(stock)
@@ -151,6 +152,15 @@ def get_indicator_data(name, ticker, interval, period):
     percent_chg = round(((chg_val/open_val) * 100),2)
 
     anal_data = get_analysis(data)
+    d1 = get_data(ticker, "1m", "5d")
+    d2 = get_data(ticker, "1d", "max")
+
+    # short term pred
+    pred1 = int((get_pred(d1) + 100)/2)
+    # long term pred
+    pred2 = int((get_pred(d2) + 100)/2)
+
+
 
     ctx = {
         'name': name,
@@ -159,7 +169,9 @@ def get_indicator_data(name, ticker, interval, period):
         'changeVal': chg_val,
         'percentChange': percent_chg,
         'data': df,
-        'analysis': anal_data
+        'analysis': anal_data,
+        'shortPrediction': pred1,
+        'longPrediction': pred2
     }
     return ctx
 

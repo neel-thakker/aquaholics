@@ -1,9 +1,10 @@
 # Relative Strenght Index (RSI)
-from indicator_data import get_data
 import pandas as pd
 import talib
 import numpy as np
 import sys
+
+
 def get_rsi(stock, period):
     rsi_df_lib = pd.DataFrame(talib.RSI(stock['close'],timeperiod=period))
     rsi_df_lib.columns = ['rsi']
@@ -54,7 +55,7 @@ def get_stochRSI_trend(stochRSI_df_lib):
 
 def get_ema(stock, period):
     exp = stock['close'].ewm(span = period, adjust = False, min_periods = period).mean()
-   
+
     return exp
 
 def get_ema_trend(ema_50df, ema_200df):
@@ -144,25 +145,25 @@ def get_ad(stock):
   AD = talib.AD(stock['high'], stock['low'], stock['close'], stock['Volume'])
   return AD
 
-# Combination of Indicators : 
+# Combination of Indicators :
 # 1: RSI + Bollinger Bands
 
 def rsi_and_bollinger(stock,bollingerBands,rsi_df_lib,sma20,idx):
     '''
-    assuming the variables in hand : 
+    assuming the variables in hand :
     1. current price
-    2. bollinger band 2D array consisting of data : 
+    2. bollinger band 2D array consisting of data :
     S.No. | Time/Date | Upper-Bollinger-level | Lower-Bollinger-level | 20-Period-SMA
-      1   |   11:00   |     500               |     400               |     450      
-      2   |   11:05   |     499               |     402               |     449       
-    3. RSI     
-    
+      1   |   11:00   |     500               |     400               |     450
+      2   |   11:05   |     499               |     402               |     449
+    3. RSI
+
     '''
     bollingerSentiment = 0
     bollingerRange = 30
-    
+
     '''
-    sentiment : 
+    sentiment :
     bollingerRange for strong buy
     -bollingerRange for strong sell
     '''
@@ -173,7 +174,7 @@ def rsi_and_bollinger(stock,bollingerBands,rsi_df_lib,sma20,idx):
     latestUpperLevel = bollingerBands['boll_up'].iloc[-idx]
     latestLowerLevel = bollingerBands['boll_down'].iloc[-idx]
     current_price = stock['close'].iloc[-idx]
-    
+
     # checking if current price has touched or crossed either bollinger level
     if(current_price <= latestLowerLevel):
         bollingerSentiment = bollingerRange
@@ -185,7 +186,7 @@ def rsi_and_bollinger(stock,bollingerBands,rsi_df_lib,sma20,idx):
         bollingerSentiment = bollingerRange*(float(current_price - latest20DaySMA)/(latestUpperLevel - latest20DaySMA))
     elif (latestLowerLevel != latest20DaySMA):
         bollingerSentiment = -bollingerRange*(float(current_price - latest20DaySMA)/(latestLowerLevel - latest20DaySMA))
-    
+
     '''
     # checking for convergence or divergence pattern
     for datapoint in bollingerBands:
@@ -194,9 +195,9 @@ def rsi_and_bollinger(stock,bollingerBands,rsi_df_lib,sma20,idx):
     midLevel = datapoint['20-Period SMA']
     difference_pattern.append(upperLevel - lowerLevel)
     '''
-    
+
     #RSI
-    
+
     # rsiRange = 100 - bollingerRange
     rsiSentiment = 0
     rsi = rsi_df_lib['rsi'].iloc[-idx]
@@ -225,11 +226,11 @@ def rsi_and_bollinger(stock,bollingerBands,rsi_df_lib,sma20,idx):
     '''
     rsi : 30------x------70
     sent: 50------y------(50)
-    
+
     so
-    
-    (x-30)/40 = (y+50)/100 
-    
+
+    (x-30)/40 = (y+50)/100
+
     where answer = -y
     '''
     finalSentiment = bollingerSentiment + rsiSentiment
@@ -239,14 +240,14 @@ def rsi_and_bollinger(stock,bollingerBands,rsi_df_lib,sma20,idx):
 
 # 2: RSI + MACD
 def rsi_and_macd(stock,rsi_df_lib,macd_df_lib,idx):
-    
+
     '''
-    variables received : 
+    variables received :
     1. current price
     2. macd line value
     3. signal line value
     4. rsi
-    
+
     '''
     macdRange = 30
     macdSentiment = 0
@@ -255,14 +256,14 @@ def rsi_and_macd(stock,rsi_df_lib,macd_df_lib,idx):
     signalLineValue = macd_df_lib['signal'].iloc[-idx]
     previousMACDLineValue = macd_df_lib['macd'].iloc[-idx]
     previousSignalLineValue = macd_df_lib['signal'].iloc[-idx]
-    if macdLineValue > signalLineValue : 
+    if macdLineValue > signalLineValue :
         macdSentiment = macdRange
-    elif macdLineValue < signalLineValue : 
+    elif macdLineValue < signalLineValue :
         macdSentiment = -macdRange
-    
-    
-    # incase of crossing line, strong trend reversal 
-    elif macdLineValue == signalLineValue : 
+
+
+    # incase of crossing line, strong trend reversal
+    elif macdLineValue == signalLineValue :
         if previousMACDLineValue > previousSignalLineValue:
             macdSentiment = -macdRange
         else:
@@ -272,7 +273,7 @@ def rsi_and_macd(stock,rsi_df_lib,macd_df_lib,idx):
     # rsiRange = 70
     rsi = rsi_df_lib['rsi'].iloc[-idx]
     rsiSentiment = 0
-    
+
     if(rsi <= 30 and rsi >= 25):
         rsiSentiment = 45
     elif(rsi <= 25 and rsi >= 20):
@@ -295,21 +296,21 @@ def rsi_and_macd(stock,rsi_df_lib,macd_df_lib,idx):
         rsiSentiment = -70
     else:
       rsiSentiment = -1 * (2.25*(rsi-30) - 45)
-    
+
     '''
     rsi : 30------x------70
     sent: 45------y------(-45)
-    
+
     so
-    
-    (x-30)/40 = (y+45)/90 
-    
+
+    (x-30)/40 = (y+45)/90
+
     where answer = -y
     '''
     finalSentiment = macdSentiment + rsiSentiment
     # returning value between -100 to 100:  -100 = strong sell, 100 = strong buy
     # ratio of weightage for MACD : RSI :: 30 : 70
-    
+
     return finalSentiment
 
 # 3: RSI + ADX
@@ -334,7 +335,7 @@ def adx_and_macd(adx_df,macd_df_lib,idx):
   if(macd_df_lib['macd'].iloc[-1] > macd_df_lib['signal'].iloc[-idx]):
     result=1
   elif(macd_df_lib['macd'].iloc[-1] < macd_df_lib['signal'].iloc[-idx]):
-    result=-1 
+    result=-1
   else:
     result=0
   adx=adx_df.iloc[-idx]
@@ -346,7 +347,7 @@ def adx_and_macd(adx_df,macd_df_lib,idx):
 
 # 5: MACD + BOLLINGER
 def macd_and_bollinger(stock, MACD, bollingerBands,sma20,idx):
-  
+
   '''
     stock dataframe
     MACD : Dataframe consisting of columns macd, signal and hist=macd-signal
@@ -369,14 +370,14 @@ def macd_and_bollinger(stock, MACD, bollingerBands,sma20,idx):
       bollingerSentiment = bollingerRange*(float(current_price - latest20DaySMA)/(latestUpperLevel - latest20DaySMA))
   elif (latestLowerLevel != latest20DaySMA):
       bollingerSentiment = -bollingerRange*(float(current_price - latest20DaySMA)/(latestLowerLevel - latest20DaySMA))
-  
+
   macd_trend = get_macd_trend(MACD,idx)
   '''
     BollingerSentiment : -30----x----30
     Macd_trend : {-1,1}
   '''
   weight = 0.4
-  res = weight*macd_trend*100 + (1-weight)*bollingerSentiment*(10/3) 
+  res = weight*macd_trend*100 + (1-weight)*bollingerSentiment*(10/3)
   return res
 
 # 6: SMA200 + RSI
@@ -431,7 +432,7 @@ def atr_analysis(stock,atr,idx):
   current_atr = atr.iloc[-idx]
   current_difference_from_lowest = current_atr - min_atr
   max_difference = max_atr - min_atr
-  
+
   atr_sentiment = (current_difference_from_lowest/max_difference) * 5
   atr_result = 5
   if atr_sentiment <= 1:
@@ -446,7 +447,7 @@ def atr_analysis(stock,atr,idx):
 def stoc_rsi_and_bollinger(stock,sma20,bollingerBands,stochRSI_df_lib,idx):
   rsi = stochRSI_df_lib['fast_K'].iloc[-idx]
   rsiSentiment = 0
-  
+
   if(rsi <= 30 and rsi >= 25):
       rsiSentiment = 45
   elif(rsi <= 25 and rsi >= 20):
@@ -496,7 +497,7 @@ def stoc_rsi_and_macd(stock,macd,stochRSI_df_lib,idx):
     macd_trend = get_macd_trend(macd,idx)
     rsi = stochRSI_df_lib['fast_K'].iloc[-idx]
     rsiSentiment = 0
-    
+
     if(rsi <= 30 and rsi >= 25):
       rsiSentiment = 45
     elif(rsi <= 25 and rsi >= 20):
@@ -523,7 +524,7 @@ def stoc_rsi_and_macd(stock,macd,stochRSI_df_lib,idx):
     weight = 0.75
     final_sentiment = int(rsiSentiment*10/7*weight)+ int(macd_trend*100*(1-weight))
     return final_sentiment
-    
+
 
 # we are calculating stoic_rsi + 200 EMA here
 # we already calculated rsi + 200 SMA
@@ -632,16 +633,16 @@ def sma200_and_sma50(stock,sma50,sma200,idx):
 
 #13:
 
-  # The A/D line is used to help assess price trends and potentially spot forthcoming reversals. 
-  # If a security’s price is in a downtrend while the A/D line is in an uptrend, then the 
+  # The A/D line is used to help assess price trends and potentially spot forthcoming reversals.
+  # If a security’s price is in a downtrend while the A/D line is in an uptrend, then the
   # indicator shows there may be buying pressure and the security’s price may reverse to the upside.
-  # Conversely, if a security’s price is in an uptrend while the A/D line is in a downtrend, then 
-  # the indicator shows there may be selling pressure, or higher distribution. 
+  # Conversely, if a security’s price is in an uptrend while the A/D line is in a downtrend, then
+  # the indicator shows there may be selling pressure, or higher distribution.
   # This warns that the price may be due for a decline.
 
 
-  # find slope => steeper the slope, A strongly rising A/D line confirms a strongly rising price. 
-  # Similarly, if the price is falling and the A/D is also falling, then there is still plenty of 
+  # find slope => steeper the slope, A strongly rising A/D line confirms a strongly rising price.
+  # Similarly, if the price is falling and the A/D is also falling, then there is still plenty of
   # distribution and prices are likely to continue to decline.
 
 def get_adl_slope(adl,period, start):
@@ -761,11 +762,11 @@ def obv_ema_rsi(stock,rsi,idx):
   '''
     rsi : 30------x------70
     sent: 10------y------(-10)
-    
+
     so
-    
-    (x-30)/40 = (y+10)/20 
-    
+
+    (x-30)/40 = (y+10)/20
+
     where answer = -y
     '''
 
@@ -791,7 +792,7 @@ def vwap_sentiment(stock,idx):
     else:
       vwap_sentiment = (vwap[-idx] - price)/((0.8 - 1)*price)*100
   return vwap_sentiment
-    
+
 def finalPred(data,bollinger,rsi,macd,adx,atr,adl,sma200,sma50,sma20,stoc_rsi,ema200,idx):
   r1=rsi_and_bollinger(data,bollinger,rsi,sma20,idx)
   r2=rsi_and_macd(data,rsi,macd,idx)
@@ -801,7 +802,7 @@ def finalPred(data,bollinger,rsi,macd,adx,atr,adl,sma200,sma50,sma20,stoc_rsi,em
   r6=sma200_and_rsi(data,rsi,sma200,idx)
   r7=atr_and_50SMA(data,atr,sma20,idx)
   r8=sma200_and_sma50(data,sma50,sma200,idx)
-  r9=adx_and_stoc_rsi(adx,stoc_rsi,idx)  
+  r9=adx_and_stoc_rsi(adx,stoc_rsi,idx)
   r10=stoc_rsi_and_bollinger(data,sma20,bollinger,stoc_rsi,idx)
   r11=stoc_rsi_and_macd(data,macd,stoc_rsi,idx)
   r12=stoc_rsi_200ema(data,stoc_rsi,ema200,idx)
@@ -811,7 +812,7 @@ def finalPred(data,bollinger,rsi,macd,adx,atr,adl,sma200,sma50,sma20,stoc_rsi,em
   result=(r1+r2+r3+r4+r5+r6+r7+r8+r9+r10+r11+r12+r13+r14+r15)/13
   return result
 
-def call_pred(data):
+def get_pred(data):
     rsi = get_rsi(data,14)
     macd = get_macd(data)
     sma200=get_sma(data,200)
@@ -827,6 +828,4 @@ def call_pred(data):
     return signal
 
 if __name__ == '__main__':
-    df=get_data(sys.argv[1],sys.argv[2],sys.argv[3])
-    print(call_pred(df))
-
+    get_pred(sys.argv[1])

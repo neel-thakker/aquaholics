@@ -26,7 +26,7 @@ def get_news(query):
             'source': items['source']['name'],
             'tittle': items['title'],
             'publishedAt': items['publishedAt'],
-            'content': items['content'],
+            'content': items['content'][:-13],
             'url': items['url'],
             'urlToImg': items['urlToImage']
         }
